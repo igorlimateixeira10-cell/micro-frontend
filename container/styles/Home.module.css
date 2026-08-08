@@ -1,0 +1,62 @@
+.page {
+  background-color: #f7fafc;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  flexDirection: column;
+  justify-content: space-between;
+}
+
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoText {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #2d3748;
+}
+
+.mainContent {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px;
+  flex: 1;
+}
+
+.carrinhoAtivo {
+  background-color: #ebf8ff;
+  border: 1px solid #bee3f8;
+  padding: 20px 24px;
+  borderRadius: 16px;
+  marginBottom: 30px;
+}
+
+.remoteWrapper {
+  border: 1px dashed #cbd5e0;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #ffffff;
+}
+
+/* Responsividade para Celular exigida pelo professor */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 20px;
+  }
+  .mainContent {
+    padding: 20px 15px;
+  }
+}
