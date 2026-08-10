@@ -9,8 +9,8 @@ const nextConfig = {
         name: 'container',
         filename: 'static/chunks/remoteEntry.js',
         remotes: {
-          catalogo: `catalogo@http://localhost:3001/_next/static/${isServer ? 'ssr' : 'chunks'}/remoteEntry.js`,
-        },
+    catalogo: `catalogo@http://localhost:3000/_next/static/${isServer ? 'ssr' : 'chunks'}/remoteEntry.js`,
+  },
         shared: {},
       })
     );

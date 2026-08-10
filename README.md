@@ -1,30 +1,24 @@
-# Projeto Micro Frontends - Disque-Fome
+# Projeto Micro Frontends - Disco-Fome Delivery
 
-Aplicação de delivery desenvolvida com arquitetura de **Micro Frontends**, utilizando **Next.js** e **Module Federation** para integrar de forma dinâmica aplicações independentes.
-
----
-
-## 🏗️ Arquitetura do Projeto
-
-O sistema está dividido em dois microsserviços independentes:
-
-1. **Catálogo (`catalogo` - Porta 3001):**
-   - Microsserviço responsável por gerenciar e expor o componente de cardápio (`./Cardapio`) remotamente através do plugin Module Federation (`remoteEntry.js`).
-
-2. **Container (`container` - Porta 3000):**
-   - Aplicação Host principal. Ela consome o componente remoto do catálogo em tempo de execução via carregamento dinâmico e gerencia o estado global do carrinho de compras (cálculo de valores, quantidades, adição de itens e eventos de interação).
+Aplicação desenvolvida para praticar os conceitos de **Micro Frontends** utilizando **Webpack Module Federation** com Next.js e React. O sistema simula um ambiente real de desenvolvimento distribuído, dividindo a aplicação em partes independentes integradas por um container principal.
 
 ---
 
-## 🚀 Como Executar o Projeto
+## 🛠️ Arquitetura do Projeto (Monorepo)
 
-Para testar o fluxo completo de micro frontends, você precisará rodar os dois projetos simultaneamente em terminais separados.
+O projeto está dividido em duas aplicações principais:
+1. **`catalogo` (Micro Cardápio):** Responsável por expor os produtos/pratos disponíveis (nome, descrição, preço e botão de adicionar ao pedido). Roda na porta `3000`.
+2. **`container` (Container App):** Aplicação principal que consome o micro de catálogo via Module Federation, gerencia o estado global do carrinho e exibe a interface principal. Roda na porta `3001`.
 
-### 1. Iniciar o microsserviço de Catálogo (Remoto)
-Abra um terminal na pasta do catálogo (`catalogo`), instale as dependências (se necessário), faça o build de produção inicial e inicie na porta **3001**:
+---
 
+## 🚀 Como Rodar o Projeto
+
+Para executar o projeto localmente, abra **duas abas separadas** no seu terminal:
+
+### 1. Rodar o Micro Catálogo
+Entre na pasta do catálogo e inicie o servidor:
 ```bash
 cd catalogo
 npm install
-npm run build
-npm run dev -- -p 3001
+npm run dev

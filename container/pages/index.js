@@ -1,5 +1,4 @@
-import Head from 'next/head';
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 
 const RemoteCardapio = dynamic(
@@ -13,50 +12,45 @@ export default function Home() {
 
   const adicionarItem = (produto) => {
     setCarrinho((prev) => [...prev, produto]);
-    setMensagem(`"${produto.nome}" adicionado ao carrinho! 🛒`);
+    setMensagem(`Produto "${produto.nome}" adicionado ao carrinho!`);
     setTimeout(() => setMensagem(''), 3000);
   };
-
-  // Escuta o evento global vindo do microsserviço remoto
-  useEffect(() => {
-    const handleEvent = (e) => {
-      if (e.detail) adicionarItem(e.detail);
-    };
-    window.addEventListener('adicionar-ao-carrinho', handleEvent);
-    return () => window.removeEventListener('adicionar-ao-carrinho', handleEvent);
-  }, []);
 
   const valorTotal = carrinho.reduce((acc, item) => acc + item.precoNum, 0);
 
   return (
-    <div style={{ backgroundColor: '#f4f4f5', minHeight: '100vh', fontFamily: 'sans-serif' }}>
-      <Head>
-        <title>Disco-Fome | Delivery</title>
-      </Head>
+    <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh', fontFamily: 'sans-serif' }}>
+      
+      {/* Título do Disco-Fome / Delivery */}
+      <div style={{ padding: '24px', backgroundColor: '#00a868', color: '#fff' }}>
+        <h1 style={{ margin: 0, fontSize: '24px' }}>Disco-Fome | Delivery</h1>
+      </div>
 
       {mensagem && (
-        <div style={{ position: 'fixed', bottom: '24px', right: '24px', backgroundColor: '#00a868', color: '#fff', padding: '12px 24px', borderRadius: '8px', zIndex: 1000, fontWeight: 'bold' }}>
+        <div style={{ position: 'fixed', bottom: '24px', right: '24px', backgroundColor: '#28a745', color: '#fff', padding: '12px 24px', borderRadius: '8px', zIndex: 1000 }}>
           {mensagem}
         </div>
       )}
 
-      <header style={{ backgroundColor: '#ffffff', padding: '14px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #eaeaea' }}>
-        <h2 style={{ margin: 0, color: '#ea1d2c' }}>Disco-Fome</h2>
-        <div style={{ backgroundColor: '#ea1d2c', color: '#fff', padding: '8px 16px', borderRadius: '8px', fontWeight: 'bold' }}>
-          🛒 Carrinho ({carrinho.length}) - R$ {valorTotal.toFixed(2)}
+      {/* Seção do Carrinho */}
+      <div style={{ background: '#fff', padding: '16px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #eaeaea' }}>
+        <h2 style={{ margin: 0, fontSize: '18px', color: '#111' }}>Carrinho ({carrinho.length} itens)</h2>
+        <div style={{ fontSize: '16px', fontWeight: 'bold', color: '#00a868' }}>
+          Total: R$ {valorTotal.toFixed(2)}
         </div>
-      </header>
-
-      <div style={{ background: '#ea1d2c', color: '#fff', padding: '36px 32px', textAlign: 'center' }}>
-        <h1>Fome de quê?</h1>
-        <p>Os melhores lanches da região entregues quentinhos na sua porta.</p>
       </div>
 
-      <main style={{ maxWidth: '1100px', margin: '24px auto', padding: '0 20px' }}>
-        <h3 style={{ marginBottom: '16px', color: '#333' }}>Cardápio Remoto (Carregado via Módulo Federação)</h3>
-        
-        <RemoteCardapio onSelecionarPrato={adicionarItem} />
-      </main>
+      {/* Conteúdo Principal */}
+      <div style={{ padding: '24px' }}>
+        <h2 style={{ margin: '0 0 16px 0', fontSize: '22px', color: '#111' }}>Cardápio</h2>
+        <p style={{ margin: '0 0 24px 0', fontSize: '14px', color: '#666' }}>
+          Escolha os melhores lanches da região entregues quentinhos na sua porta.
+        </p>
+
+        {/* Componente Remoto via Module Federation */}
+        <RemoteCardapio onAdicionar={adicionarItem} />
+      </div>
+
     </div>
   );
 }
