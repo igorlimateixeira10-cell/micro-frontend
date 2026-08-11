@@ -8,8 +8,8 @@ const nextConfig = {
         name: 'catalogo',
         filename: 'static/chunks/remoteEntry.js',
         exposes: {
-          './Cardapio': './components/Cardapio.jsx', // Ajustado para a pasta correta
-        },
+  './Cardapio': './src/components/Cardapio.jsx',
+},
         shared: {},
       })
     );

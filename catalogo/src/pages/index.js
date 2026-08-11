@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Catalogo from '@/components/catalogo';
+import Cardapio from '@/components/Cardapio';
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
       </Head>
       <main>
         <h1>Catálogo</h1>
-        <Catalogo />
+        <Cardapio />
       </main>
     </div>
   );

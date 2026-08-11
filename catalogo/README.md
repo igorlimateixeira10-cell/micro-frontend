@@ -1,40 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Projeto Micro Frontends - Disco-Fome Delivery
 
-## Getting Started
+Aplicação desenvolvida para praticar os conceitos de **Micro Frontends** utilizando **Webpack Module Federation** com Next.js e React. O sistema simula um ambiente real de desenvolvimento distribuído, dividindo a aplicação em partes independentes integradas por um container principal.
 
-First, run the development server:
+---
+
+## 🛠️ Arquitetura do Projeto (Monorepo)
+
+O projeto está dividido em duas aplicações independentes:
+1. **`catalogo` (Micro Cardápio):** Responsável por expor os produtos/pratos disponíveis (nome, descrição, preço e botão de adicionar ao pedido). **Roda na porta `3000`**.
+2. **`container` (Container App):** Aplicação principal que consome o micro de catálogo via Module Federation, gerencia o estado global do carrinho e exibe a interface principal. **Roda na porta `3001`**.
+
+---
+
+## 🚀 Como Rodar o Projeto
+
+Para executar o projeto localmente de forma completa, abra **duas abas separadas** em seu terminal:
+
+### 1. Iniciar o Micro Catálogo
+Na primeira aba do seu terminal, entre na pasta do catálogo, instale as dependências e inicie o servidor:
 
 ```bash
+cd catalogo
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+O catálogo deve estar em execução na porta 3000 - http://localhost:3000
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+​2. Iniciar o Container App
+​Em uma segunda aba separada do seu terminal, entre na pasta do container, instale as dependências e inicie utilizando o Webpack local
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+cd container
+npm install
+NEXT_PRIVATE_LOCAL_WEBPACK=true npm run dev
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+O container deve estar em execução na porta 3001 - http://localhost:3001
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+Como Funciona a Integração e Comunicação
+​Module Federation: O container/next.config.mjs utiliza o NextFederationPlugin para importar remotamente o componente Cardapio exposto pelo micro catalogo.
+​Carregamento Dinâmico: O container consome os componentes remotos de forma assíncrona, garantindo independência no build e no deploy de cada micro frontend.
+​Comunicação: A interação de adicionar itens ao carrinho gerencia o estado reativo entre os componentes integrados na interface principal.
