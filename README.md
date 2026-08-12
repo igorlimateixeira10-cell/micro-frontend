@@ -1,33 +1,19 @@
-# Projeto Micro Frontends - Disco-Fome Delivery
+# Micro Frontends — Disco-Fome Delivery
 
-Aplicação desenvolvida para praticar os conceitos de **Micro Frontends** utilizando **Webpack Module Federation** com Next.js e React. O sistema simula um ambiente real de desenvolvimento distribuído, dividindo a aplicação em partes independentes integradas por um container principal.
+Projeto de exemplo com 3 micros: `catalogo` (3000), `container` (3001) e `pedido` (3002). Integração por Module Federation (Next.js).
 
----
-
-## 🛠️ Arquitetura do Projeto (Monorepo)
-
-O projeto está dividido em duas aplicações principais:
-1. **`catalogo` (Micro Cardápio):** Responsável por expor os produtos/pratos disponíveis (nome, descrição, preço e botão de adicionar ao pedido). Roda na porta `3000`.
-2. **`container` (Container App):** Aplicação principal que consome o micro de catálogo via Module Federation, gerencia o estado global do carrinho e exibe a interface principal. Roda na porta `3001`.
-
----
-
-## 🚀 Como Rodar o Projeto
-
-Para executar o projeto localmente, abra **duas abas separadas** no seu terminal:
-
-### 1. Rodar o Micro Catálogo
-Entre na pasta do catálogo e inicie o servidor:
+Como rodar (dev — abra 3 terminais, na ordem):
 ```bash
-cd catalogo
-npm install
-npm run build
-npm run start
+cd catalogo && npm install && npm run dev        # http://localhost:3000
+cd pedido  && npm install && PORT=3002 npm run dev # http://localhost:3002
+cd container && npm install && NEXT_PRIVATE_LOCAL_WEBPACK=true npm run dev # http://localhost:3001
 
---
+Teste rápido
 
-container
-cd container
-npm install
-npm run build
-PORT=3001 npx next start -p 3001
+Abra http://localhost:3001.
+Clique em "Adicionar" no catálogo; confirme que o item aparece no pedido e o total atualiza.
+Checklist rápido antes do envio
+
+ catalogo, pedido, container rodando e builds OK.
+ Cardapio e Pedido expostos via Module Federation.
+ README curto (este), relatório REPORT.md incluído no branch de entrega.
