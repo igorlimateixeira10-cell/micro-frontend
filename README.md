@@ -21,4 +21,13 @@ Entre na pasta do catálogo e inicie o servidor:
 ```bash
 cd catalogo
 npm install
-npm run dev
+npm run build
+npm run start
+
+--
+
+container
+cd container
+npm install
+npm run build
+PORT=3001 npx next start -p 3001
