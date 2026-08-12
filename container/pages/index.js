@@ -9,7 +9,12 @@ export default function Home() {
   const [mensagem, setMensagem] = useState("");
 
   const adicionarItem = (produto) => {
-    setCarrinho((prev) => [...prev, produto]);
+    // Normaliza o produto para garantir que `preco` é numérico
+    const produtoNormalizado = {
+      ...produto,
+      preco: Number(produto.preco) || 0,
+    };
+    setCarrinho((prev) => [...prev, produtoNormalizado]);
     setMensagem(`Produto "${produto.nome}" adicionado ao carrinho!`);
     setTimeout(() => setMensagem(""), 3000);
   };

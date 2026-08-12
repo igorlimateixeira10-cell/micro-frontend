@@ -9,7 +9,7 @@ import React from 'react';
 // Motivo: manter a responsabilidade de orquestração (adicionar/remover itens)
 // no container, deixando o micro focado apenas na apresentação.
 export default function Pedido({ items = [] }) {
-  const total = items.reduce((s, i) => s + (i.preco || 0), 0);
+  const total = items.reduce((s, i) => s + (Number(i.preco) || 0), 0);
 
   return (
     <div style={{ border: '1px solid #e6e6e6', padding: '16px', borderRadius: '8px' }}>
