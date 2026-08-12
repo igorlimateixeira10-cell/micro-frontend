@@ -6,12 +6,18 @@ const produtos = [
   { id: 3, nome: 'Cachorro Quente da Casa', preco: 18.00, descricao: 'Hot Dogs, duas salsichas, purê de batata, batata palha e molho especial.' }
 ];
 
+// `onAdicionar` é a função que o container passa ao micro remoto para
+// notificar que um produto foi selecionado. Mantemos o micro independente:
+// se `onAdicionar` não for passado (quando executado isoladamente), o
+// componente apenas faz um log local.
 export default function Cardapio({ onAdicionar }) {
   const handleAdicionar = (item) => {
     if (typeof onAdicionar === 'function') {
+      // Notifica o container para atualizar o estado global do carrinho
       onAdicionar(item);
     } else {
-      console.log('Item adicionado:', item);
+      // Modo standalone (útil para desenvolvimento do micro isolado)
+      console.log('Item adicionado (modo isolado):', item);
     }
   };
 

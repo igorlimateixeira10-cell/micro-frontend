@@ -1,0 +1,1 @@
+{"sharedModules":[],"federatedModules":[{"remote":"pedido","entry":"static/chunks/remoteEntry.js","sharedModules":[],"exposes":{"./noop":["static/chunks/node_modules_module-federation_nextjs-mf_src_federation-noop_js.js"],"./Pedido":["static/chunks/src_components_Pedido_jsx.js"]},"remoteModules":{}}]}
