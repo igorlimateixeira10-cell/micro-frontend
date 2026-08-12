@@ -2,13 +2,19 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 
 const Cardapio = dynamic(() => import('catalogo/Cardapio'), { ssr: false });
+const Pedido = dynamic(() => import('pedido/Pedido'), { ssr: false });
 
 export default function Home() {
   const [carrinho, setCarrinho] = useState([]);
   const [mensagem, setMensagem] = useState("");
 
   const adicionarItem = (produto) => {
-    setCarrinho((prev) => [...prev, produto]);
+    // Normaliza o produto para garantir que `preco` é numérico
+    const produtoNormalizado = {
+      ...produto,
+      preco: Number(produto.preco) || 0,
+    };
+    setCarrinho((prev) => [...prev, produtoNormalizado]);
     setMensagem(`Produto "${produto.nome}" adicionado ao carrinho!`);
     setTimeout(() => setMensagem(""), 3000);
   };
@@ -36,8 +42,19 @@ export default function Home() {
         <h2 style={{ fontSize: '22px', color: '#111' }}>Cardápio</h2>
         <p style={{ fontSize: '14px', color: '#555' }}>Escolha os melhores lanches da região entrequinhos na sua porta.</p>
         
-        {/* Passando a função que atualiza o carrinho para o micro frontend */}
+        {/*
+          Passando a função que atualiza o carrinho para o micro frontend.
+          Observação arquitetural: o container é responsável pela orquestração
+          do estado (carrinho). Os micros ficam responsáveis pela UI e pela
+          notificação de eventos (através de props ou eventos globais).
+        */}
         <Cardapio onAdicionar={adicionarItem} />
+        
+        <div style={{ marginTop: 24 }}>
+          <h2 style={{ fontSize: '20px', color: '#111' }}>Pedido</h2>
+          {/* O container passa os `items` atuais para o micro `Pedido` exposto */}
+          <Pedido items={carrinho} />
+        </div>
       </div>
     </div>
   );
